@@ -131,80 +131,77 @@ class _CountdownPageState extends State<CountdownPage> {
 
           // Center content with a stripe behind
           Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Decorative stripe
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // stripe
-                      Container(
-                        width: double.infinity,
-                        constraints: const BoxConstraints(maxWidth: 1100),
-                        padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF5ECD6).withOpacity(0.95), // cor de pergaminho
-                          borderRadius: BorderRadius.circular(6),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.16),
-                              blurRadius: 12,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Faltam\u00A0',
-                              style: TextStyle(
-                                color: const Color(0xFF072033),
-                                fontWeight: FontWeight.w700,
-                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                                fontFamily: 'MedievalSharp',
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              days,
-                              key: const Key('days'),
-                              style: TextStyle(
-                                color: const Color(0xFF072033),
-                                fontWeight: FontWeight.w900,
-                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                                height: 1,
-                                fontFamily: 'MedievalSharp',
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              'dias para o fim do CFP',
-                              style: TextStyle(
-                                color: const Color(0xFF072033),
-                                fontWeight: FontWeight.w700,
-                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                                fontFamily: 'MedievalSharp',
-                              ),
-                            ),
-                          ],
-                        ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Decorative stripe
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // stripe
+                    Container(
+                      width: MediaQuery.of(context).size.width, // ocupa toda a largura da página
+                      // constraints removido para não limitar a largura
+                      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF5ECD6).withOpacity(0.5), // cor de pergaminho
+                        // borderRadius: BorderRadius.circular(6),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.16),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Faltam\u00A0',
+                            style: TextStyle(
+                              color: const Color(0xFF072033),
+                              fontWeight: FontWeight.w700,
+                              fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                              fontFamily: 'MedievalSharp',
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            days,
+                            key: const Key('days'),
+                            style: TextStyle(
+                              color: const Color(0xFF072033),
+                              fontWeight: FontWeight.w900,
+                              fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                              height: 1,
+                              fontFamily: 'MedievalSharp',
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            'dias para o fim do CFP',
+                            style: TextStyle(
+                              color: const Color(0xFF072033),
+                              fontWeight: FontWeight.w700,
+                              fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                              fontFamily: 'MedievalSharp',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
 
-                  const SizedBox(height: 12),
-                  Text(
-                    _remaining == Duration.zero ? 'O CFP já terminou' : '',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                ],
-              ),
+                const SizedBox(height: 12),
+                Text(
+                  _remaining == Duration.zero ? 'O CFP já terminou' : '',
+                  style: const TextStyle(color: Colors.white70),
+                ),
+              ],
             ),
           ),
 
