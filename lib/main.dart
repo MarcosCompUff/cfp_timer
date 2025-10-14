@@ -66,6 +66,9 @@ class _CountdownPageState extends State<CountdownPage> {
   Widget build(BuildContext context) {
     final days = _formatDays(_remaining);
 
+    // Detecta se é mobile (largura <= 600)
+    final isMobile = MediaQuery.of(context).size.width <= 600;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -77,35 +80,51 @@ class _CountdownPageState extends State<CountdownPage> {
             ),
           ),
 
-          // Left side image (behind content)
-          Positioned(
-            left: -40,
-            top: 0,
-            bottom: 0,
-            child: IgnorePointer(
-              ignoring: true,
-              child: Image.asset(
-                'assets/esquerda.png',
-                height: MediaQuery.of(context).size.height,
-                fit: BoxFit.contain,
+          // Imagem esquerda (mobile: ocupa 80% largura, desktop: 45%)
+          if (isMobile)
+            Positioned(
+              left: 0,
+              // bottom: 0,
+              top: 0,
+              child: IgnorePointer(
+                ignoring: true,
+                child: Image.asset(
+                  'assets/esquerda.png',
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )
+          else ...[
+            // Desktop/tablet: imagem esquerda
+            Positioned(
+              left: 0,
+              bottom: 0,
+              top: 0,
+              child: IgnorePointer(
+                ignoring: true,
+                child: Image.asset(
+                  'assets/esquerda.png',
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
-
-          // Right side image (behind content)
-          Positioned(
-            right: -40,
-            top: 0,
-            bottom: 0,
-            child: IgnorePointer(
-              ignoring: true,
-              child: Image.asset(
-                'assets/direita.png',
-                height: MediaQuery.of(context).size.height,
-                fit: BoxFit.contain,
+            // Desktop/tablet: imagem direita
+            Positioned(
+              right: 0,
+              bottom: 0,
+              top: 0,
+              child: IgnorePointer(
+                ignoring: true,
+                child: Image.asset(
+                  'assets/direita.png',
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
+          ],
 
           // Center content with a stripe behind
           Center(
