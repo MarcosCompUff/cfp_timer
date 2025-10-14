@@ -161,12 +161,13 @@ class _CountdownPageState extends State<CountdownPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Faltam\u00A0',
                               style: TextStyle(
-                                color: Color(0xFF072033),
+                                color: const Color(0xFF072033),
                                 fontWeight: FontWeight.w700,
-                                fontSize: 20,
+                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                                fontFamily: 'MedievalSharp',
                               ),
                             ),
                             const SizedBox(width: 6),
@@ -174,19 +175,21 @@ class _CountdownPageState extends State<CountdownPage> {
                               days,
                               key: const Key('days'),
                               style: TextStyle(
-                                color: Color(0xFF072033),
+                                color: const Color(0xFF072033),
                                 fontWeight: FontWeight.w900,
                                 fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
                                 height: 1,
+                                fontFamily: 'MedievalSharp',
                               ),
                             ),
                             const SizedBox(width: 12),
-                            const Text(
+                            Text(
                               'dias para o fim do curso',
                               style: TextStyle(
-                                color: Color(0xFF072033),
+                                color: const Color(0xFF072033),
                                 fontWeight: FontWeight.w700,
-                                fontSize: 20,
+                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                                fontFamily: 'MedievalSharp',
                               ),
                             ),
                           ],
