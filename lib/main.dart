@@ -143,7 +143,7 @@ class _CountdownPageState extends State<CountdownPage> {
                         constraints: const BoxConstraints(maxWidth: 1100),
                         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
+                          color: const Color(0xFFF5ECD6).withOpacity(0.95), // cor de pergaminho
                           borderRadius: BorderRadius.circular(6),
                           boxShadow: [
                             BoxShadow(
@@ -202,15 +202,15 @@ class _CountdownPageState extends State<CountdownPage> {
             ),
           ),
 
-          // Corner GIF
+          // // Corner GIF
           // Positioned(
-          //   right: 12,
-          //   bottom: 12,
+          //   right: 100,
+          //   bottom: 15,
           //   child: IgnorePointer(
           //     ignoring: true,
           //     child: Image.asset(
           //       'assets/bebe.gif',
-          //       width: MediaQuery.of(context).size.width * 0.28,
+          //       height: MediaQuery.of(context).size.height * 0.40,
           //       fit: BoxFit.contain,
           //     ),
           //   ),
