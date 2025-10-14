@@ -67,7 +67,7 @@ class _CountdownPageState extends State<CountdownPage> {
     final days = _formatDays(_remaining);
 
     // Detecta se é mobile (largura <= 600)
-    final isMobile = MediaQuery.of(context).size.width <= 600;
+    final isMobile = MediaQuery.of(context).size.width <= 1400;
 
     return Scaffold(
       body: Stack(
@@ -90,7 +90,8 @@ class _CountdownPageState extends State<CountdownPage> {
                 ignoring: true,
                 child: Image.asset(
                   'assets/esquerda.png',
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  // width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -99,13 +100,14 @@ class _CountdownPageState extends State<CountdownPage> {
             // Desktop/tablet: imagem esquerda
             Positioned(
               left: 0,
-              bottom: 0,
+              // bottom: 0,
               top: 0,
               child: IgnorePointer(
                 ignoring: true,
                 child: Image.asset(
                   'assets/esquerda.png',
-                  width: MediaQuery.of(context).size.width * 0.45,
+                  // width: MediaQuery.of(context).size.width * 0.45,
+                  height: MediaQuery.of(context).size.height,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -113,13 +115,14 @@ class _CountdownPageState extends State<CountdownPage> {
             // Desktop/tablet: imagem direita
             Positioned(
               right: 0,
-              bottom: 0,
+              // bottom: 0,
               top: 0,
               child: IgnorePointer(
                 ignoring: true,
                 child: Image.asset(
                   'assets/direita.png',
-                  width: MediaQuery.of(context).size.width * 0.45,
+                  // width: MediaQuery.of(context).size.width * 0.45,
+                  height: MediaQuery.of(context).size.height,
                   fit: BoxFit.contain,
                 ),
               ),
