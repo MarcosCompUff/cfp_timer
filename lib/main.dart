@@ -184,7 +184,7 @@ class _CountdownPageState extends State<CountdownPage> {
                             ),
                             const SizedBox(width: 12),
                             Text(
-                              'dias para o fim do curso',
+                              'dias para o fim do CFP',
                               style: TextStyle(
                                 color: const Color(0xFF072033),
                                 fontWeight: FontWeight.w700,
@@ -200,7 +200,7 @@ class _CountdownPageState extends State<CountdownPage> {
 
                   const SizedBox(height: 12),
                   Text(
-                    _remaining == Duration.zero ? 'O curso terminou' : '',
+                    _remaining == Duration.zero ? 'O CFP já terminou' : '',
                     style: const TextStyle(color: Colors.white70),
                   ),
                 ],
