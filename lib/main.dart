@@ -250,7 +250,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
               ),
             ),
 
-          // Botão com ícone de bebê no canto inferior direito
+          // Botão com ícone de buzina no canto inferior direito
           Positioned(
             right: 24,
             bottom: 24,
@@ -264,8 +264,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
               elevation: 0,
               splashColor: Colors.transparent,
               highlightElevation: 0,
-              child: const Icon(Icons.child_friendly, color: Colors.blueAccent, size: 32),
-              tooltip: _showBebe ? 'Ocultar bebê' : 'Mostrar bebê',
+              child: const Icon(Icons.campaign, color: Colors.black54, size: 32), // Ícone de buzina
             ),
           ),
         ],
