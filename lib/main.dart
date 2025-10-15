@@ -30,16 +30,35 @@ class CountdownPage extends StatefulWidget {
   State<CountdownPage> createState() => _CountdownPageState();
 }
 
-class _CountdownPageState extends State<CountdownPage> {
+class _CountdownPageState extends State<CountdownPage> with SingleTickerProviderStateMixin {
   late Timer _timer;
   Duration _remaining = Duration.zero;
   final DateTime _target = DateTime(2025, 11, 14);
+
+  // Controle de animação para mover as imagens
+  late AnimationController _imgController;
+  late Animation<double> _leftAnim;
+  late Animation<double> _rightAnim;
 
   @override
   void initState() {
     super.initState();
     _updateRemaining();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateRemaining());
+
+    // Animação de vai-e-vem para as imagens
+    _imgController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: true);
+
+    // Esquerda: 0 -> +30 (direita), Direita: 0 -> -30 (esquerda)
+    _leftAnim = Tween<double>(begin: -15, end: 35).animate(
+      CurvedAnimation(parent: _imgController, curve: Curves.easeInOut),
+    );
+    _rightAnim = Tween<double>(begin: -15, end: 35).animate(
+      CurvedAnimation(parent: _imgController, curve: Curves.easeInOut),
+    );
   }
 
   void _updateRemaining() {
@@ -55,6 +74,7 @@ class _CountdownPageState extends State<CountdownPage> {
   @override
   void dispose() {
     _timer.cancel();
+    _imgController.dispose();
     super.dispose();
   }
 
@@ -80,54 +100,57 @@ class _CountdownPageState extends State<CountdownPage> {
             ),
           ),
 
-          // Imagem esquerda (mobile: ocupa 80% largura, desktop: 45%)
-          if (isMobile)
-            Positioned(
-              left: 0,
-              // bottom: 0,
-              top: 0,
-              child: IgnorePointer(
-                ignoring: true,
-                child: Image.asset(
-                  'assets/esquerda.png',
-                  // width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            )
-          else ...[
-            // Desktop/tablet: imagem esquerda
-            Positioned(
-              left: 0,
-              // bottom: 0,
-              top: 0,
-              child: IgnorePointer(
-                ignoring: true,
-                child: Image.asset(
-                  'assets/esquerda.png',
-                  // width: MediaQuery.of(context).size.width * 0.45,
-                  height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            // Desktop/tablet: imagem direita
-            Positioned(
-              right: 0,
-              // bottom: 0,
-              top: 0,
-              child: IgnorePointer(
-                ignoring: true,
-                child: Image.asset(
-                  'assets/direita.png',
-                  // width: MediaQuery.of(context).size.width * 0.45,
-                  height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ],
+          // Imagem esquerda (mobile: ocupa 80% largura, desktop: 45%) - agora animada
+          AnimatedBuilder(
+            animation: _imgController,
+            builder: (context, child) {
+              if (isMobile) {
+                return Positioned(
+                  left: _leftAnim.value,
+                  top: 0,
+                  child: IgnorePointer(
+                    ignoring: true,
+                    child: Image.asset(
+                      'assets/esquerda.png',
+                      height: MediaQuery.of(context).size.height,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                );
+              } else {
+                return Stack(
+                  children: [
+                    // Esquerda vai para a direita (_leftAnim.value: 0 -> +30)
+                    Positioned(
+                      left: _leftAnim.value,
+                      top: 0,
+                      child: IgnorePointer(
+                        ignoring: true,
+                        child: Image.asset(
+                          'assets/esquerda.png',
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    // Direita vai para a esquerda (_rightAnim.value: 0 -> +30, mas usamos -_rightAnim.value)
+                    Positioned(
+                      right: _rightAnim.value,
+                      top: 0,
+                      child: IgnorePointer(
+                        ignoring: true,
+                        child: Image.asset(
+                          'assets/direita.png',
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+            },
+          ),
 
           // Center content with a stripe behind
           Center(
