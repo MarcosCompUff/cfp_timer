@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Contador até 14/11/2025',
+      title: 'HOOOOOOOOP',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
@@ -39,6 +39,8 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
   late AnimationController _imgController;
   late Animation<double> _leftAnim;
   late Animation<double> _rightAnim;
+
+  bool _showBebe = false;
 
   @override
   void initState() {
@@ -233,19 +235,39 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
             ),
           ),
 
-          // // Corner GIF
-          // Positioned(
-          //   right: 100,
-          //   bottom: 15,
-          //   child: IgnorePointer(
-          //     ignoring: true,
-          //     child: Image.asset(
-          //       'assets/bebe.gif',
-          //       height: MediaQuery.of(context).size.height * 0.40,
-          //       fit: BoxFit.contain,
-          //     ),
-          //   ),
-          // ),
+          // Bebê GIF no canto inferior direito, aparece/some conforme _showBebe
+          if (_showBebe)
+            Positioned(
+              right: 30,
+              bottom: 15, // espaço para não sobrepor o botão
+              child: IgnorePointer(
+                ignoring: true,
+                child: Image.asset(
+                  'assets/bebe.gif',
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
+          // Botão com ícone de bebê no canto inferior direito
+          Positioned(
+            right: 24,
+            bottom: 24,
+            child: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _showBebe = !_showBebe;
+                });
+              },
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              splashColor: Colors.transparent,
+              highlightElevation: 0,
+              child: const Icon(Icons.child_friendly, color: Colors.blueAccent, size: 32),
+              tooltip: _showBebe ? 'Ocultar bebê' : 'Mostrar bebê',
+            ),
+          ),
         ],
       ),
     );
