@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "contadordabravo",
+    "site": "trombetadocfp",
     "public": "build/web",
     "ignore": [
       "firebase.json",

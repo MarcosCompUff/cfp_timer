@@ -275,7 +275,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
               highlightElevation: 0,
               child: Icon(
                 _showBebe ? Icons.volume_off : Icons.volume_up,
-                color: Colors.grey,
+                color: Colors.black,
                 size: 32,
               ),
             ),
