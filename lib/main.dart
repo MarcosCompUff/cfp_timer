@@ -83,7 +83,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
   }
 
   String _formatDays(Duration d) {
-    return d.inDays.toString();
+    return (d.inDays + (d > Duration.zero ? 1 : 0)).toString();
   }
 
   @override
@@ -265,7 +265,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
                   await _audioPlayer.stop();
                 } else {
                   await _audioPlayer.setReleaseMode(ReleaseMode.loop);
-                  await _audioPlayer.setVolume(0.5);
+                  await _audioPlayer.setVolume(0.1);
                   await _audioPlayer.play(AssetSource('corneta.mp3'));
                 }
               },
