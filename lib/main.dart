@@ -155,10 +155,11 @@ class _CountdownPageState extends State<CountdownPage> {
                           ),
                         ],
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 6,
+                        runSpacing: 8,
                         children: [
                           Text(
                             'Faltam\u00A0',
@@ -169,7 +170,6 @@ class _CountdownPageState extends State<CountdownPage> {
                               fontFamily: 'MedievalSharp',
                             ),
                           ),
-                          const SizedBox(width: 6),
                           Text(
                             days,
                             key: const Key('days'),
@@ -181,7 +181,6 @@ class _CountdownPageState extends State<CountdownPage> {
                               fontFamily: 'MedievalSharp',
                             ),
                           ),
-                          const SizedBox(width: 12),
                           Text(
                             'dias para o fim do CFP',
                             style: TextStyle(
