@@ -237,22 +237,22 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
             ),
           ),
 
-          // Bebê GIF no canto inferior direito, aparece/some conforme _showBebe
-          if (_showBebe)
-            Positioned(
-              right: 30,
-              bottom: 15, // espaço para não sobrepor o botão
-              child: IgnorePointer(
-                ignoring: true,
-                child: Image.asset(
-                  'assets/bebe.gif',
-                  height: MediaQuery.of(context).size.height * 0.40,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
+          // // Bebê GIF no canto inferior direito, aparece/some conforme _showBebe
+          // if (_showBebe)
+          //   Positioned(
+          //     right: 30,
+          //     bottom: 15, // espaço para não sobrepor o botão
+          //     child: IgnorePointer(
+          //       ignoring: true,
+          //       child: Image.asset(
+          //         'assets/bebe.gif',
+          //         height: MediaQuery.of(context).size.height * 0.40,
+          //         fit: BoxFit.contain,
+          //       ),
+          //     ),
+          //   ),
 
-          // Botão com ícone de buzina no canto inferior direito
+          // Botão com ícone de som/mudo no canto inferior direito
           Positioned(
             right: 24,
             bottom: 24,
@@ -273,7 +273,11 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
               elevation: 0,
               splashColor: Colors.transparent,
               highlightElevation: 0,
-              child: const Icon(Icons.campaign, color: Colors.grey, size: 32), // Ícone de buzina
+              child: Icon(
+                _showBebe ? Icons.volume_off : Icons.volume_up,
+                color: Colors.grey,
+                size: 32,
+              ),
             ),
           ),
         ],
