@@ -155,42 +155,47 @@ class _CountdownPageState extends State<CountdownPage> {
                           ),
                         ],
                       ),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        spacing: 6,
-                        runSpacing: 8,
-                        children: [
-                          Text(
-                            'Faltam\u00A0',
-                            style: TextStyle(
-                              color: const Color(0xFF072033),
-                              fontWeight: FontWeight.w700,
-                              fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                              fontFamily: 'MedievalSharp',
+                      child: Center(
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          spacing: 6,
+                          runSpacing: 8,
+                          children: [
+                            Text(
+                              'Faltam\u00A0',
+                              style: TextStyle(
+                                color: const Color(0xFF072033),
+                                fontWeight: FontWeight.w700,
+                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                                fontFamily: 'MedievalSharp',
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          Text(
-                            days,
-                            key: const Key('days'),
-                            style: TextStyle(
-                              color: const Color(0xFF072033),
-                              fontWeight: FontWeight.w900,
-                              fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                              height: 1,
-                              fontFamily: 'MedievalSharp',
+                            Text(
+                              days,
+                              key: const Key('days'),
+                              style: TextStyle(
+                                color: const Color(0xFF072033),
+                                fontWeight: FontWeight.w900,
+                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                                height: 1,
+                                fontFamily: 'MedievalSharp',
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          Text(
-                            'dias para o fim do CFP',
-                            style: TextStyle(
-                              color: const Color(0xFF072033),
-                              fontWeight: FontWeight.w700,
-                              fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                              fontFamily: 'MedievalSharp',
+                            Text(
+                              'dias para o fim do CFP',
+                              style: TextStyle(
+                                color: const Color(0xFF072033),
+                                fontWeight: FontWeight.w700,
+                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                                fontFamily: 'MedievalSharp',
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
