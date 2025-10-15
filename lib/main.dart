@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +41,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
   late Animation<double> _rightAnim;
 
   bool _showBebe = false;
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -55,10 +56,10 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
     )..repeat(reverse: true);
 
     // Esquerda: 0 -> +30 (direita), Direita: 0 -> -30 (esquerda)
-    _leftAnim = Tween<double>(begin: -15, end: 35).animate(
+    _leftAnim = Tween<double>(begin: -40, end: 0).animate(
       CurvedAnimation(parent: _imgController, curve: Curves.easeInOut),
     );
-    _rightAnim = Tween<double>(begin: -15, end: 35).animate(
+    _rightAnim = Tween<double>(begin: -40, end: 0).animate(
       CurvedAnimation(parent: _imgController, curve: Curves.easeInOut),
     );
   }
@@ -77,6 +78,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
   void dispose() {
     _timer.cancel();
     _imgController.dispose();
+    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -159,7 +161,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.30), // Move a faixa 25% para baixo do centro
+                SizedBox(height: MediaQuery.of(context).size.height * 0.35),
                 // Decorative stripe
                 Stack(
                   alignment: Alignment.center,
@@ -255,10 +257,16 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
             right: 24,
             bottom: 24,
             child: FloatingActionButton(
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   _showBebe = !_showBebe;
                 });
+                if (!_showBebe) {
+                  await _audioPlayer.stop();
+                } else {
+                  await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+                  await _audioPlayer.play(AssetSource('corneta.mp3'));
+                }
               },
               backgroundColor: Colors.transparent,
               elevation: 0,
