@@ -134,6 +134,7 @@ class _CountdownPageState extends State<CountdownPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.30), // Move a faixa 25% para baixo do centro
                 // Decorative stripe
                 Stack(
                   alignment: Alignment.center,
