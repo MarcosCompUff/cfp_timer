@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HOOOOOOOOP',
+      title: 'HOPEEE',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
@@ -91,7 +91,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
     final days = _formatDays(_remaining);
 
     // Detecta se é mobile (largura <= 600)
-    final isMobile = MediaQuery.of(context).size.width <= 1400;
+    final isMobile = MediaQuery.of(context).size.width <= 900;
 
     return Scaffold(
       body: Stack(
@@ -265,6 +265,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
                   await _audioPlayer.stop();
                 } else {
                   await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+                  await _audioPlayer.setVolume(0.5);
                   await _audioPlayer.play(AssetSource('corneta.mp3'));
                 }
               },
@@ -272,7 +273,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
               elevation: 0,
               splashColor: Colors.transparent,
               highlightElevation: 0,
-              child: const Icon(Icons.campaign, color: Colors.black54, size: 32), // Ícone de buzina
+              child: const Icon(Icons.campaign, color: Colors.grey, size: 32), // Ícone de buzina
             ),
           ),
         ],
