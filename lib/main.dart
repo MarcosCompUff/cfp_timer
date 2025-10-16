@@ -43,6 +43,8 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
   bool _showBebe = false;
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+  int _aulas = 0; // armazena dias úteis restantes
+
   @override
   void initState() {
     super.initState();
@@ -70,16 +72,37 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
       _remaining = _target.difference(now);
       if (_remaining.isNegative) {
         _remaining = Duration.zero;
+        _aulas = 0;
+      } else {
+        // Conta dias úteis (inclusive do dia atual até a data alvo)
+        _aulas = _countaulas(
+          DateTime(now.year, now.month, now.day),
+          DateTime(_target.year, _target.month, _target.day),
+        );
+
+        // A aula do dia termina às 16:00 — se já passou das 16h, não contar a aula de hoje
+        final today = DateTime(now.year, now.month, now.day);
+        final targetDate = DateTime(_target.year, _target.month, _target.day);
+        if (now.hour >= 16 && !today.isAfter(targetDate)) {
+          _aulas = _aulas > 0 ? _aulas - 1 : 0;
+        }
       }
     });
   }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    _imgController.dispose();
-    _audioPlayer.dispose();
-    super.dispose();
+  // Conta dias úteis entre duas datas (inclusive)
+  int _countaulas(DateTime start, DateTime end) {
+    if (start.isAfter(end)) return 0;
+    DateTime cur = DateTime(start.year, start.month, start.day);
+    final last = DateTime(end.year, end.month, end.day);
+    int count = 0;
+    while (!cur.isAfter(last)) {
+      if (cur.weekday != DateTime.saturday && cur.weekday != DateTime.sunday) {
+        count++;
+      }
+      cur = cur.add(const Duration(days: 1));
+    }
+    return count;
   }
 
   String _formatDays(Duration d) {
@@ -89,6 +112,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     final days = _formatDays(_remaining);
+    final aulas = _aulas.toString();
 
     // Detecta se é mobile (largura <= 600)
     final isMobile = MediaQuery.of(context).size.width <= 900;
@@ -183,45 +207,17 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
                         ],
                       ),
                       child: Center(
-                        child: Wrap(
-                          alignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          spacing: 6,
-                          runSpacing: 8,
-                          children: [
-                            Text(
-                              'Faltam\u00A0',
-                              style: TextStyle(
-                                color: const Color(0xFF072033),
-                                fontWeight: FontWeight.w700,
-                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                                fontFamily: 'MedievalSharp',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              days,
-                              key: const Key('days'),
-                              style: TextStyle(
-                                color: const Color(0xFF072033),
-                                fontWeight: FontWeight.w900,
-                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                                height: 1,
-                                fontFamily: 'MedievalSharp',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              'dias para o fim do CFP',
-                              style: TextStyle(
-                                color: const Color(0xFF072033),
-                                fontWeight: FontWeight.w700,
-                                fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
-                                fontFamily: 'MedievalSharp',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                        child: Text(
+                          'Faltam $days dias ($aulas aulas) para o fim do CFP',
+                          style: TextStyle(
+                            color: const Color(0xFF072033),
+                            fontWeight: FontWeight.w800,
+                            fontSize: MediaQuery.of(context).size.width < 420 ? 36 : 64,
+                            height: 1.05,
+                            fontFamily: 'MedievalSharp',
+                          ),
+                          textAlign: TextAlign.center,
+                          softWrap: true,
                         ),
                       ),
                     ),
