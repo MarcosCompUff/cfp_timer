@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "trombetadocfp",
+    "site": "testefirebase-9901c",
     "public": "build/web",
     "ignore": [
       "firebase.json",

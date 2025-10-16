@@ -237,20 +237,20 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
             ),
           ),
 
-          // // Bebê GIF no canto inferior direito, aparece/some conforme _showBebe
-          // if (_showBebe)
-          //   Positioned(
-          //     right: 30,
-          //     bottom: 15, // espaço para não sobrepor o botão
-          //     child: IgnorePointer(
-          //       ignoring: true,
-          //       child: Image.asset(
-          //         'assets/bebe.gif',
-          //         height: MediaQuery.of(context).size.height * 0.40,
-          //         fit: BoxFit.contain,
-          //       ),
-          //     ),
-          //   ),
+          // Bebê GIF no canto inferior direito, aparece/some conforme _showBebe
+          if (_showBebe)
+            Positioned(
+              right: 30,
+              bottom: 15, // espaço para não sobrepor o botão
+              child: IgnorePointer(
+                ignoring: true,
+                child: Image.asset(
+                  'assets/bebe.gif',
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
 
           // Botão com ícone de som/mudo no canto inferior direito
           Positioned(
@@ -265,7 +265,7 @@ class _CountdownPageState extends State<CountdownPage> with SingleTickerProvider
                   await _audioPlayer.stop();
                 } else {
                   await _audioPlayer.setReleaseMode(ReleaseMode.loop);
-                  await _audioPlayer.setVolume(0.1);
+                  await _audioPlayer.setVolume(0.15);
                   await _audioPlayer.play(AssetSource('corneta.mp3'));
                 }
               },
